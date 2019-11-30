@@ -41,7 +41,7 @@ rlp_labels_ours = gt_tuple_label;
 sub_bboxes_ours = gt_sub_bboxes;
 obj_bboxes_ours = gt_obj_bboxes;
 
-model_label_list = {'KB_wc_10000', 'KB_nc_10000'};
+model_label_list = {'KB_wc_2500', 'KB_nc_2500'};
 
 for model_label_idx =1 : length(model_label_list)
 

@@ -30,8 +30,8 @@ for predicate in selected_predicates:
     idxs_of_positive_examples_of_predicates[predicate] = np.where(predicates[triples_of_train_data[:, -1]] == predicate)[0]
     idxs_of_negative_examples_of_predicates[predicate] = idxs_of_negative_examples
 
-print "finished to upload and analyze data"
-print "Start model definition"
+print("finished to upload and analyze data")
+print("Start model definition")
 
 # domain definition
 clause_for_positive_examples_of_predicates = [
@@ -85,7 +85,7 @@ def train(number_of_training_iterations=2500,
                   clauses_for_not_range
 
 # defining the label of the background knowledge
-    for cl in clauses: print cl.label
+    for cl in clauses: print(cl.label)
 
     if with_constraints:
         kb_label = "KB_wc"
@@ -110,7 +110,7 @@ def train(number_of_training_iterations=2500,
     for i in range(start_from_iter, number_of_training_iterations + 1):
         if i % frequency_of_feed_dict_generation == 0:
             if train_kb:
-                print i
+                print(i)
             else:
                 train_kb = True
             if train_kb and (i==10000):
@@ -120,7 +120,7 @@ def train(number_of_training_iterations=2500,
                                       idxs_of_negative_examples_of_predicates,
                                       idxs_of_positive_examples_of_types,
                                       with_constraints=with_constraints)
-            print "---- TRAIN",kb_label,"----"
+            print("---- TRAIN",kb_label,"----")
         if train_kb:
             sat_level = sess.run(KB.tensor,feed_dict)
 
@@ -130,15 +130,15 @@ def train(number_of_training_iterations=2500,
                 train_kb = False
             else:
                 KB.train(sess, feed_dict)
-        print str(i) + ' --> ' + str(sat_level)
+        print(str(i) + ' --> ' + str(sat_level))
 
-    print "end of training"
+    print("end of training")
     sess.close()
 
 
 def get_feed_dict(idxs_of_pos_ex_of_predicates, idxs_of_neg_ex_of_predicates, idxs_of_pos_ex_of_types, with_constraints=True):
 
-    print "selecting new training data"
+    print("selecting new training data")
     feed_dict = {}
 
     # positive and negative examples for predicates

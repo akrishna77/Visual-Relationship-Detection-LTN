@@ -34,7 +34,7 @@ load('data/Wb.mat');
 % W and b in Eq. (2) in [1]
 %%
 
-model_label_list = {'KB_wc_10000', 'KB_nc_10000'};
+model_label_list = {'KB_wc_2500', 'KB_nc_2500'};
 
 for model_label_idx =1 : length(model_label_list)
     model_label = model_label_list{model_label_idx};

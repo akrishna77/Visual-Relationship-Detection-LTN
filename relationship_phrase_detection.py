@@ -97,7 +97,7 @@ for model_type in model_list:
     obj_bboxes_ours_output = []
     sub_bboxes_ours_output = []
     model_label = model.split("/")[-1][:-5]
-    print model.upper()
+    print(model.upper())
     predicted_predicates_values_tensor = tf.concat(1, [isInRelation[predicate].tensor() for predicate in selected_predicates])
     saver = tf.train.Saver()
     sess = tf.Session(config=config)
@@ -107,7 +107,7 @@ for model_type in model_list:
 
     for pic_idx in range(detection_bboxes.shape[1]):
         if pic_idx % 100 == 0:
-            print "Eval img", pic_idx
+            print("Eval img", pic_idx)
         values_of_predicates = np.array([], dtype=np.float32).reshape(0, 70)
         values_of_predicates = sess.run(predicted_predicates_values_tensor, {pairs_of_objects.tensor: features_detected_bb[pic_idx]})
 

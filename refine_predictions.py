@@ -11,7 +11,7 @@ def create_ontology_graph():
     # Construct ISA trees from triples
 
     graph = rdflib.Graph()
-    graph.parse(os.path.join(ontology_dir, 'inferred_vrd'))
+    graph.parse(os.path.join(ontology_dir, 'inferred_vrd.xml'))
 
     ontology_labels_nodes = {}
     ontology_labels_equivalent_tmp = Set([])

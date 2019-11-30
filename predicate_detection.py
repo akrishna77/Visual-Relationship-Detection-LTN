@@ -103,7 +103,7 @@ for model_type in model_list:
 
     model = model_type
     model_label = model.split("/")[-1][:-5]
-    print model.upper()
+    print(model.upper())
     obj_bboxes_ours_output = []
     sub_bboxes_ours_output = []
     predicted_predicates_values_tensor = tf.concat(1, [isInRelation[predicate].tensor() for predicate in selected_predicates])
@@ -116,7 +116,7 @@ for model_type in model_list:
 
     for pic_idx in range(gt_tuple_label.shape[1]):
         if pic_idx % 100 == 0:
-            print "Eval img", pic_idx
+            print("Eval img", pic_idx)
         values_of_predicates = sess.run(predicted_predicates_values_tensor, {pairs_of_objects.tensor: features_detected_bb[pic_idx]})
 
         values_of_predicates = refine_equiv(values_of_predicates, selected_predicates, "max")

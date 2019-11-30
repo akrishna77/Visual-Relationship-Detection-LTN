@@ -169,7 +169,7 @@ def get_data(train_or_test_switch, one_shot_features_flag, max_rows=10000000):
 
     cartesian_of_bb_idxs = np.array([[i,j] for p in pics for i in pics[p] for j in pics[p]])
 
-    print "End of loading data"
+    print("End of loading data")
 
     return data, pairs_of_data, types_of_data, triples_s_o_p, cartesian_of_data, pics_triples, cartesian_of_bb_idxs
 

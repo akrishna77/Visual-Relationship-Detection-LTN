@@ -38,7 +38,7 @@ def disjunction_of_literals(literals, label="no_label"):
     if default_tnorm == "yager2":
         result = tf.minimum(1.0, tf.sqrt(tf.reduce_sum(tf.square(literals_tensor), 1, keep_dims=True)))
     if default_tnorm == "luk":
-        print "data aggregator is lukas"
+        print("data aggregator is lukas")
         result = tf.minimum(1.0, tf.reduce_sum(literals_tensor, 1, keep_dims=True))
         PR(result)
     if default_tnorm == "goedel":
@@ -46,22 +46,22 @@ def disjunction_of_literals(literals, label="no_label"):
     if default_aggregator == "product":
         return tf.reduce_prod(result, keep_dims=True)
     if default_aggregator == "mean":
-        print "data aggregator is mean"
+        print("data aggregator is mean")
         return tf.reduce_mean(result, keep_dims=True, name=label)
     if default_aggregator == "gmean":
         return tf.exp(tf.mul(tf.reduce_sum(tf.log(result), keep_dims=True),
                              tf.inv(tf.to_float(tf.size(result)))), name=label)
     if default_aggregator == "hmean":
-        print "data aggregator is hmean"
+        print("data aggregator is hmean")
         return tf.div(tf.to_float(tf.size(result)), tf.reduce_sum(tf.inv(result), keep_dims=True))
     if default_aggregator == "min":
-        print "data aggregator is min"
+        print("data aggregator is min")
         return tf.reduce_min(result, keep_dims=True, name=label)
     if default_aggregator == "qmean":
-        print "data aggregator is qmean"
+        print("data aggregator is qmean")
         return tf.sqrt(tf.reduce_mean(tf.square(result), keep_dims=True), name=label)
     if default_aggregator == "cmean":
-        print "data aggregator is cmean"
+        print("data aggregator is cmean")
         return tf.pow(tf.reduce_mean(tf.pow(result, 3), keep_dims=True), tf.inv(tf.to_float(3)), name=label)
 
 
@@ -190,7 +190,7 @@ class Clause:
 class KnowledgeBase:
 
     def __init__(self, label, clauses, save_path=""):
-        print "defining the knowledge base", label
+        print("defining the knowledge base", label)
         self.label = label
         self.clauses = clauses
         self.parameters = [par for cl in self.clauses for par in cl.parameters]
@@ -199,16 +199,16 @@ class KnowledgeBase:
         else:
             clauses_value_tensor = tf.concat(0, [cl.tensor for cl in clauses])
             if default_clauses_aggregator == "min":
-                print "clauses aggregator is min"
+                print("clauses aggregator is min")
                 self.tensor = tf.reduce_min(clauses_value_tensor)
             if default_clauses_aggregator == "mean":
-                print "clauses aggregator is mean"
+                print("clauses aggregator is mean")
                 self.tensor = tf.reduce_mean(clauses_value_tensor)
             if default_clauses_aggregator == "hmean":
-                print "clauses aggregator is hmean"
+                print("clauses aggregator is hmean")
                 self.tensor = tf.div(tf.to_float(tf.size(clauses_value_tensor)), tf.reduce_sum(tf.inv(clauses_value_tensor), keep_dims=True))
             if default_clauses_aggregator == "wmean":
-                print "clauses aggregator is weighted mean"
+                print("clauses aggregator is weighted mean")
                 weights_tensor = tf.constant([cl.weight for cl in clauses])
                 self.tensor = tf.div(tf.reduce_sum(tf.mul(weights_tensor, clauses_value_tensor)), tf.reduce_sum(weights_tensor))
         if default_positive_fact_penality != 0:
@@ -220,7 +220,7 @@ class KnowledgeBase:
         self.save_path = save_path
         self.train_op = train_op(self.loss, default_optimizer)
         self.saver = tf.train.Saver(max_to_keep=20)
-        print "knowledge base", label, "is defined"
+        print("knowledge base", label, "is defined")
 
     def penalize_positive_facts(self):
         tensor_for_positive_facts = [tf.reduce_sum(Literal(True, lit.predicate, lit.domain).tensor, keep_dims=True) for cl in self.clauses for lit in cl.literals]
